@@ -1,54 +1,39 @@
-# React + TypeScript + Vite
+# 🌤️ Mausam – A Modern Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Mausam** is a beautifully designed, responsive weather application built using modern frontend technologies including **React**, **TypeScript**, **Tailwind CSS**, **TanStack Query**, **Recharts**, **Shadcn UI**, and powered by the **OpenWeather API**.
 
-Currently, two official plugins are available:
+This project is perfect for showcasing your skills in frontend development and data visualization, and it's a strong addition to any modern developer's portfolio.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔗 Live Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Check out the live version here: [mausam]((https://mausam-vimal.vercel.app/))  
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Features
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- 🌍 Get real-time weather data based on your location or search by city
+- 📊 5-day weather forecast with interactive charts (Recharts)
+- 🌗 Displays humidity, wind speed, pressure, sunrise/sunset times, and more
+- ⚡ Responsive UI with Tailwind CSS and Shadcn components
+- 🔁 Data fetching and caching with TanStack Query
+- 🧠 Fully typed with TypeScript for better maintainability
+- 🌓 Dark mode ready
+
+---
+
+## 🛠️ Tech Stack
+
+- **React JS**
+- **TypeScript**
+- **Tailwind CSS**
+- **TanStack Query (React Query)**
+- **Shadcn UI** – UI components built on Radix UI and Tailwind
+- **Recharts** – Charting library for visualizing weather data
+- **OpenWeather API** – Source for weather data
+
+---
+
