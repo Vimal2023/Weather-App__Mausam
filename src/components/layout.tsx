@@ -5,11 +5,11 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div className="bg-gradient-to-br from-background to-muted min-h-screen">
       <Header />
-      <main className="min-h-screen container mx-auto px-2 sm:px-4 py-8">
+      <main className="min-h-screen px-2 sm:px-4 py-8 max-w-full">
         {children}
       </main>
       <footer className="border-t backdrop-blur py-12 supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-2 sm:px-4 text-center text-gray-400">
+        <div className="px-2 sm:px-4 max-w-full text-center text-gray-400">
           <p>
             Made by ❤️ Code by{" "}
             <a
