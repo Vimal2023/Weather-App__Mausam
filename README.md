@@ -1,5 +1,9 @@
 # 🌤️ Mausam – A Modern Weather App
 
+![img](https://github.com/user-attachments/assets/48a98899-b2d2-4932-9979-04c7ecbd11d8)
+
+
+
 **Mausam** is a beautifully designed, responsive weather application built using modern frontend technologies including **React**, **TypeScript**, **Tailwind CSS**, **TanStack Query**, **Recharts**, **Shadcn UI**, and powered by the **OpenWeather API**.
 
 This project is perfect for showcasing your skills in frontend development and data visualization, and it's a strong addition to any modern developer's portfolio.
