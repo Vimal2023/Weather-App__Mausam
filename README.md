@@ -8,7 +8,7 @@ This project is perfect for showcasing your skills in frontend development and d
 
 ## 🔗 Live Demo
 
-Check out the live version here: [mausam]((https://mausam-vimal.vercel.app/))  
+Check out the live version here: [mausam]([https://mausam-vimal.vercel.app/])  
 
 
 ---
