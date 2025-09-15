@@ -35,11 +35,29 @@ export function useSearchHistory() {
         searchedAt: Date.now(),
       };
 
+      // Remove duplicates (by coords OR by city name+country)
       const filteredHistory = history.filter(
-        (item) => !(item.lat === search.lat && item.lon === search.lon)
+        (item) =>
+          !(
+            (item.lat === search.lat && item.lon === search.lon) ||
+            (item.name === search.name && item.country === search.country)
+          )
       );
-      const newHistory = [newSearch, ...filteredHistory].slice(0, 10);
 
+      // Keep only last 5
+      const newHistory = [newSearch, ...filteredHistory].slice(0, 5);
+
+      setHistory(newHistory);
+      return newHistory;
+    },
+    onSuccess: (newHistory) => {
+      queryClient.setQueryData(["search-history"], newHistory);
+    },
+  });
+
+  const removeFromHistory = useMutation({
+    mutationFn: async (id: string) => {
+      const newHistory = history.filter((item) => item.id !== id);
       setHistory(newHistory);
       return newHistory;
     },
@@ -60,7 +78,9 @@ export function useSearchHistory() {
 
   return {
     history: historyQuery.data ?? [],
+    lastFive: (historyQuery.data ?? []).slice(0, 5), // safe shortcut
     addToHistory,
+    removeFromHistory,
     clearHistory,
   };
 }

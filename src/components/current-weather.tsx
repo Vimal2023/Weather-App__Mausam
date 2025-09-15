@@ -2,6 +2,9 @@ import { Card, CardContent } from "./ui/card";
 import { ArrowDown, ArrowUp, Droplets, Wind } from "lucide-react";
 import type { WeatherData, GeocodingResponse } from "@/api/types";
 
+//  CHANGED: Import useTemperature
+import { useTemperature } from "@/context/temperature-provider";
+
 interface CurrentWeatherProps {
   data: WeatherData;
   locationName?: GeocodingResponse;
@@ -14,8 +17,12 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
     wind: { speed },
   } = data;
 
-  // Format temperature
-  const formatTemp = (temp: number) => `${Math.round(temp)}°`;
+  //  CHANGED: Get unit from context
+  const { unit } = useTemperature();
+
+  //  CHANGED: Add unit symbol dynamically
+  const formatTemp = (temp: number) =>
+    `${Math.round(temp)}°${unit === "metric" ? "C" : "F"}`;
 
   return (
     <Card className="overflow-hidden">

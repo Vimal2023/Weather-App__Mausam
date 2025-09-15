@@ -1,5 +1,10 @@
 import { API_CONFIG } from "./config";
-import type { Coordinates, ForecastData, GeocodingResponse, WeatherData } from "./types";
+import type {
+  Coordinates,
+  ForecastData,
+  GeocodingResponse,
+  WeatherData,
+} from "./types";
 
 class WeatherAPI {
   private createUrl(endpoint: string, params: Record<string, string | number>) {
@@ -21,27 +26,40 @@ class WeatherAPI {
     return response.json();
   }
 
-  async getCurrentWeather({ lat, lon }: Coordinates): Promise<WeatherData> {
+  //  CHANGED: Added units param (optional)
+  async getCurrentWeather({
+    lat,
+    lon,
+    units = API_CONFIG.DEFAULT_PARAMS.units,
+  }: Coordinates & { units?: string }): Promise<WeatherData> {
     const url = this.createUrl(`${API_CONFIG.BASE_URL}/weather`, {
       lat: lat.toString(),
       lon: lon.toString(),
-      units: API_CONFIG.DEFAULT_PARAMS.units,
+      units,
     });
 
     return this.fetchData<WeatherData>(url);
   }
 
-  async getForecast({ lat, lon }: Coordinates): Promise<ForecastData> {
+  //  CHANGED: Added units param (optional)
+  async getForecast({
+    lat,
+    lon,
+    units = API_CONFIG.DEFAULT_PARAMS.units,
+  }: Coordinates & { units?: string }): Promise<ForecastData> {
     const url = this.createUrl(`${API_CONFIG.BASE_URL}/forecast`, {
       lat: lat.toString(),
       lon: lon.toString(),
-      units: API_CONFIG.DEFAULT_PARAMS.units,
+      units,
     });
 
     return this.fetchData<ForecastData>(url);
   }
 
-  async reverseGeocode({ lat, lon }: Coordinates): Promise<GeocodingResponse[]> {
+  async reverseGeocode({
+    lat,
+    lon,
+  }: Coordinates): Promise<GeocodingResponse[]> {
     const url = this.createUrl(`${API_CONFIG.BASE_URL}/reverse`, {
       lat: lat.toString(),
       lon: lon.toString(),
@@ -58,6 +76,32 @@ class WeatherAPI {
     });
 
     return this.fetchData<GeocodingResponse[]>(url);
+  }
+
+  //  CHANGED: Added units param (optional)
+  async getWeatherByCity(
+    city: string,
+    units = API_CONFIG.DEFAULT_PARAMS.units
+  ): Promise<WeatherData> {
+    const url = this.createUrl(`${API_CONFIG.BASE_URL}/weather`, {
+      q: city,
+      units,
+    });
+
+    return this.fetchData<WeatherData>(url);
+  }
+
+  //  CHANGED: Added units param (optional)
+  async getForecastByCity(
+    city: string,
+    units = API_CONFIG.DEFAULT_PARAMS.units
+  ): Promise<ForecastData> {
+    const url = this.createUrl(`${API_CONFIG.BASE_URL}/forecast`, {
+      q: city,
+      units,
+    });
+
+    return this.fetchData<ForecastData>(url);
   }
 }
 
