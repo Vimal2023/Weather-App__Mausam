@@ -109,7 +109,7 @@ const Dashboard = () => {
               weatherQuery.isFetching ? "aminate-spin" : ""
             }`}
           /> */}
-          Refresh
+          Refresh++
         </Button>
       </div>
       <div className="grid gap-6">
