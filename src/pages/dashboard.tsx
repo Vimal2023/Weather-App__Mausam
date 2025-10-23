@@ -104,11 +104,12 @@ const Dashboard = () => {
           onClick={handleRefresh}
           disabled={weatherQuery.isFetching || forecastQuery.isFetching}
         >
-          <RefreshCw
+          {/* <RefreshCw
             className={`h-4 w-4 ${
               weatherQuery.isFetching ? "aminate-spin" : ""
             }`}
-          />
+          /> */}
+          Refresh
         </Button>
       </div>
       <div className="grid gap-6">
