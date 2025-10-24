@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { WeatherDetails } from "@/components/weather-details";
 import { WeatherForecast } from "@/components/weather-forecast";
 import { useGeolocation } from "@/hooks/use-geolocation";
+import { useState, useEffect } from "react";
+
 import {
   useForecastQuery,
   useReverseGeocodeQuery,
@@ -25,6 +27,28 @@ const Dashboard = () => {
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const locationQuery = useReverseGeocodeQuery(coordinates);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  const [timeAgo, setTimeAgo] = useState<string>("");
+
+  useEffect(() => {
+    if (!lastUpdated) return;
+
+    const updateAgo = () => {
+      const diff = Math.floor((Date.now() - lastUpdated.getTime()) / 1000);
+      if (diff < 60) {
+        setTimeAgo(`${diff}s ago`);
+      } else {
+        const mins = Math.floor(diff / 60);
+        setTimeAgo(`${mins}m ago`);
+      }
+    };
+
+    updateAgo(); // initial call
+    const interval = setInterval(updateAgo, 60000); // har 1 min baad update
+
+    return () => clearInterval(interval); // cleanup
+  }, [lastUpdated]);
 
   const handleRefresh = () => {
     getLocation();
@@ -32,6 +56,7 @@ const Dashboard = () => {
       weatherQuery.refetch();
       forecastQuery.refetch();
       locationQuery.refetch();
+      setLastUpdated(new Date());
     }
   };
 
@@ -94,22 +119,27 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-4">
-
-      <FavoriteCities/>
+      <FavoriteCities />
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">My Location</h1>
+        <div className="flex flex-col">
+          <h1 className="text-xl font-bold tracking-tight">My Location</h1>
+          {lastUpdated && (
+            <span className="text-base text-muted-foreground">
+              Last updated: {timeAgo}
+            </span>
+          )}
+        </div>
         <Button
           variant={"outline"}
           size={"icon"}
           onClick={handleRefresh}
           disabled={weatherQuery.isFetching || forecastQuery.isFetching}
         >
-          {/* <RefreshCw
+          <RefreshCw
             className={`h-4 w-4 ${
               weatherQuery.isFetching ? "aminate-spin" : ""
             }`}
-          /> */}
-          Refresh
+          />
         </Button>
       </div>
       <div className="grid gap-6">
@@ -122,7 +152,7 @@ const Dashboard = () => {
           <HourlyTemperature data={forecastQuery.data} />
         </div>
         <div className="grid gap-6 sm:grid-cols-2 items-start">
-          <WeatherDetails data={weatherQuery.data}/>
+          <WeatherDetails data={weatherQuery.data} />
           <WeatherForecast data={forecastQuery.data} />
         </div>
       </div>
